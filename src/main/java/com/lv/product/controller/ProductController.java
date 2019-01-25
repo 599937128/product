@@ -5,14 +5,13 @@ import com.lv.product.VO.ProductVO;
 import com.lv.product.VO.ResultVO;
 import com.lv.product.dataobject.ProductCategory;
 import com.lv.product.dataobject.ProductInfo;
+import com.lv.product.dto.CartDTO;
 import com.lv.product.service.CategoryService;
 import com.lv.product.service.ProductService;
 import com.lv.product.utils.ResultVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,5 +69,20 @@ public class ProductController {
             productVOList.add(productVO);
         }
        return ResultVOUtil.success(productVOList);
+    }
+
+    /**
+     * 获取商品列表(给订单服务使用)
+     * @param prodcutIdList
+     * @return
+     */
+    @PostMapping("/listForOrder")
+    public List<ProductInfo> listForOrder(@RequestBody List<String> prodcutIdList) {
+        return productService.findList(prodcutIdList);
+    }
+
+    @PostMapping("/decreseStock")
+    public void decreseStock(@RequestBody List<CartDTO> cartDTOList) {
+        productService.decreseStock(cartDTOList);
     }
 }
