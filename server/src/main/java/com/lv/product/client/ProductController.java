@@ -1,4 +1,4 @@
-package com.lv.product.controller;
+package com.lv.product.client;
 
 import com.lv.product.VO.ProductInfoVO;
 import com.lv.product.VO.ProductVO;
